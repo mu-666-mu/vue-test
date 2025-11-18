@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>事件修饰符</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <style>
+                * {
+                        margin-top: 20px;
+                }
+
+                .demo1 {
+                        height: 50px;
+                        background-color: rgb(131, 131, 222);
+                }
+
+                .box1 {
+                        padding: 5px;
+                        background-color: #2754a1;
+                }
+
+                .box2 {
+                        padding: 5px;
+                        background-color: #1e989c;
+                }
+
+                .list {
+                        width: 200px;
+                        height: 200px;
+                        background-color: #208f66;
+                        overflow: auto;
+                }
+
+                li {
+                        height: 100px;
+                        background-color: #236669;
+                }
+        </style>
+</head>
+
+<body>
+        <div id="root">
+                <h1>Hello,{{name}}</h1>
+                <!-- 1.阻止默认行为 -->
+                <a href="http://bilibili.com" @click.prevent="showInfo1">B站首页</a>
+                <!-- 2.阻止冒泡 -->
+                <div class="demo1" @click="showInfo1">
+                        测试：我是1
+                        <button @click.stop="showInfo2">点我提示信息2</button>
+                </div>
+                <!-- 3.事件只触发一次 -->
+                <button @click.once="showInfo3">事件触发一次</button>
+                <!-- 4.使用事件捕获模式 -->
+                <div class="box1" @click.capture="showMsg(1)">
+                        <!-- 捕获阶段触发 -->
+                        div1
+                        <div class="box2" @click="showMsg(2)">
+                                div2
+                        </div>
+                </div>
+                <!-- 5.只有event.target是当前操作的元素时才触发事件，self -->
+                <div class="demo1" @click.self="showInfo4">
+                        <button @click="showInfo4">第五个测试</button>
+                </div>
+                <!-- 6.事件默认行为立即执行，无需等待事件回调执行完毕 -->
+                <!-- scroll，滚动条滚动；wheel，鼠标滚轮滚动 -->
+                <ul @wheel.passive="wheel" class="list">
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                </ul>
+        </div>
+        <script>
+
+                Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示。
+                new Vue({
+                        el: '#root',//指定当前vue实力为那个容器服务，通常为css选择器字符串
+                        //el:document.getElementById('root')
+                        data: {
+                                name: 'Fan_yi'
+                        },
+                        methods: {
+                                showInfo1(e) {
+                                        //e.preventDefault()
+                                        alert('哔哩哔哩干杯1')
+                                },
+                                showInfo2(e) {
+                                        //e.preventDefault()
+                                        alert('哔哩哔哩干杯2')
+                                },
+                                showInfo3(e) {
+                                        //e.preventDefault()
+                                        alert('只干杯一次')
+                                },
+                                showMsg(msg) {
+                                        //e.preventDefault()
+                                        console.log(msg);
+                                },
+                                showInfo4(e) {
+                                        //console.log(e.target);
+                                        alert('第五次干杯')
+                                },
+                                scroll() {
+                                        console.log('滚动条滚动');
+                                },
+                                wheel() {
+                                        console.log('滚轮滚动');
+                                        for (let i = 0; i < 100000; i++) {
+                                                console.log("正在--滚动");
+                                        }
+                                        console.log('累死我了');
+
+
+                                }
+                        }
+                })
+        </script>
+</body>
+
+</html>
