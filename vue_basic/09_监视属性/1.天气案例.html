@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>天气案例</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h1>今天天气很{{info}}</h1>
+                <button @click="changeWether">切换天气</button><br>
+                <button @click="isHot = !isHot">切换天气</button>
+        </div>
+        <script>
+
+                Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示。
+                new Vue({
+                        el: '#root',//指定当前vue实力为那个容器服务，通常为css选择器字符串
+                        //el:document.getElementById('root')
+                        data: {
+                                isHot: true
+                        },
+                        computed: {
+                                info() {
+                                        return this.isHot ? '炎热' : '凉爽'
+                                }
+                        },
+                        methods: {
+                                changeWether() {
+                                        this.isHot = !this.isHot
+                                }
+                        },
+                })
+        </script>
+</body>
+
+</html>

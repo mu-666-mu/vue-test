@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>2.深度监视-天气案例</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h1>今天天气很{{info}}</h1>
+                <button @click="changeWether">切换天气</button><br>
+                <button @click="isHot = !isHot">切换天气</button><br>
+                <h3>a的值是:{{numbers.a}}</h3>
+                <button @click="numbers.a++">a+1</button><br>
+                <h3>b的值是:{{numbers.b}}</h3>
+                <button @click="numbers.b++">b+1</button><br>
+                <button @click="numbers = {a:666,b:888}">彻底替换numbers</button>
+        </div>
+        <script>
+
+                Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示。
+                const vm = new Vue({
+                        el: '#root',
+                        data: {
+                                isHot: true,
+                                numbers: {
+                                        a: 1,
+                                        b: 2
+                                }
+                        },
+                        computed: {
+                                info() {
+                                        return this.isHot ? '炎热' : '凉爽'
+                                }
+                        },
+                        methods: {
+                                changeWether() {
+                                        this.isHot = !this.isHot
+                                }
+                        },
+                        watch: {
+                                isHot: {
+                                        handler(newValue, oldValue) {
+                                                console.log('isHot被修改了', newValue, oldValue);
+                                        }
+                                },
+                                "numbers.a": {
+                                        handler() {
+                                                console.log('a改变了');
+
+                                        }
+                                },
+                                numbers: {
+                                        deep: true,//检测numbers内部的改变
+                                        handler() {
+                                                console.log('numbers发生改变');
+
+                                        }
+                                }
+
+
+                        },
+                })
+
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>4.监视属性简写-天气案例</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h1>今天天气很{{info}}</h1>
+                <button @click="changeWether">切换天气</button><br>
+                <button @click="isHot = !isHot">切换天气</button><br>
+        </div>
+        <script>
+
+                Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示。
+                const vm = new Vue({
+                        el: '#root',
+                        data: {
+                                isHot: true,
+                                numbers: {
+                                        a: 1,
+                                        b: 2
+                                }
+                        },
+                        computed: {
+                                info() {
+                                        return this.isHot ? '炎热' : '凉爽'
+                                }
+                        },
+                        methods: {
+                                changeWether() {
+                                        this.isHot = !this.isHot
+                                }
+                        },
+                        watch: {
+                                //完整写法
+                                // isHot: {
+                                //         immediate:false,//初始时调用handler
+                                //         deep:false,//深度监视
+                                //         handler(newValue, oldValue) {
+                                //                 console.log('isHot被修改了', newValue, oldValue);
+                                //         }
+                                // },
+
+                                //只调handler可以简写;
+                                isHot(newValue, oldValue) {
+                                        console.log('isHot被修改了', newValue, oldValue);
+
+                                }
+
+
+
+                        },
+                })
+
+                //$写法
+                //完整
+                // vm.$watch('isHot', {
+                //         immediate: true,
+                //         deep: true,
+                //         handler(newValue, oldValue) {
+                //                 console.log('isHot被修改了', newValue, oldValue);
+
+                //         }
+                // })
+                //简写
+                // vm.$watch('isHot', function (newValue, oldValue) {
+                //         console.log('isHot被修改了', newValue, oldValue);
+
+                // })
+
+        </script>
+</body>
+
+</html>
