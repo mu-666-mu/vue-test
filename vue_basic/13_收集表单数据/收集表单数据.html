@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>收集表单数据</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h1>收集表单数据</h1>
+                <form @submit.prevent="demo">
+                        账号：<input type="text" v-model.trim="userInfo.account">
+                        <br>
+                        密码：<input type="password" v-model="userInfo.passWord">
+                        <br>
+                        年龄：<input type="number" v-model.number="userInfo.age">
+                        <br>
+                        性别：
+                        男<input type="radio" name="sex" v-model="userInfo.sex" value="male">
+                        女<input type="radio" name="sex" v-model="userInfo.sex" value="female"><br>
+                        爱好：
+                        抽烟<input type="checkbox" name="hobby" value="smoking" v-model="userInfo.hobby">
+                        喝酒<input type="checkbox" name="hobby" value="drinking" v-model="userInfo.hobby">
+                        烫头<input type="checkbox" name="hobby" value="perm" v-model="userInfo.hobby">
+                        <br>
+                        所属队
+                        <select v-model="userInfo.team">
+                                <option value="">---请选择你的队---</option>
+                                <option value="one">一队</option>
+                                <option value="two">二队</option>
+                                <option value="three">三队</option>
+                        </select>
+                        <br>
+                        <br>
+                        其他信息：<br>
+                        <textarea v-model.lazy="userInfo.other"></textarea>
+                        <br>
+                        <input type="checkbox" name="read" v-model="userInfo.agree"> 阅读并接受<a href="">《用户协议》</a>
+                        <br>
+                        <button>提交</button>
+                </form>
+        </div>
+        <script>
+                Vue.config.productionTip = false;
+                const vm = new Vue({
+                        el: '#root',
+                        data: {
+                                userInfo: {
+                                        account: '',
+                                        passWord: '',
+                                        age: '',
+                                        sex: '',
+                                        hobby: [],
+                                        team: '',
+                                        other: '',
+                                        agree: ''
+                                }
+                        },
+                        methods: {
+                                demo() {
+                                        console.log(JSON.stringify(this.userInfo));
+
+                                }
+                        },
+                })
+        </script>
+</body>
+
+</html>
