@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>列表过滤</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h2>人员列表</h2>
+                <input type="text" placeholder="请输入关键字" v-model="keyWord">
+                <button @click="sortType = 1">年龄升序</button>
+                <button @click="sortType = 2">年龄降序</button>
+                <button @click="sortType = 0">原顺序</button>
+                <ul>
+                        <li v-for="(i, index) in filPersons" :key="i.id">
+                                {{i.name}}-{{i.age}}-{{i.sex}}
+                        </li>
+                </ul>
+        </div>
+        <script>
+                Vue.config.productionTip = false;
+                //computed实现
+                const vm = new Vue({
+                        el: '#root',
+                        data: {
+                                keyWord: '',
+                                sortType: '0',//0原顺序；1年龄升序；2年龄降序；2yuan
+                                persons: [
+                                        { id: '001', name: '宋江', age: 17, sex: '男' },
+                                        { id: '002', name: '宋青', age: 18, sex: '男' },
+                                        { id: '003', name: '张青', age: 19, sex: '女' },
+                                        { id: '004', name: '江龙', age: 20, sex: '女' },
+                                        { id: '005', name: '李逵', age: 21, sex: '男' },
+                                        { id: '006', name: '武松', age: 22, sex: '男' },
+                                        { id: '007', name: '林冲', age: 23, sex: '男' },
+                                        { id: '008', name: '卢俊义', age: 24, sex: '男' },
+                                        { id: '009', name: '花荣', age: 20, sex: '男' },
+                                        { id: '010', name: '孙二娘', age: 19, sex: '女' },
+                                ],
+                        },
+                        computed: {
+                                filPersons() {
+                                        const arr = this.persons.filter((i) => {
+                                                return i.name.indexOf(this.keyWord) !== -1
+                                        })
+                                        //判断排序方式
+                                        if (this.sortType) {
+                                                arr.sort((x, y) => {
+                                                        return this.sortType === 1 ? x.age - y.age : y.age - x.age
+                                                })
+                                        }
+                                        return arr
+                                }
+                        },
+                })
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>更新时的一个问题</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h2>人员列表</h2>
+                <button @click="updataSong">更新宋江信息是</button>
+                <br>
+                <ul>
+                        <li v-for="(i, index) in persons" :key="i.id">
+                                {{i.name}}-{{i.age}}-{{i.sex}}
+                        </li>
+                </ul>
+        </div>
+        <script>
+                Vue.config.productionTip = false;
+                //computed实现
+                const vm = new Vue({
+                        el: '#root',
+                        data: {
+                                persons: [
+                                        { id: '001', name: '宋江', age: 17, sex: '男' },
+                                        { id: '002', name: '宋青', age: 18, sex: '男' },
+                                        { id: '003', name: '张青', age: 19, sex: '女' },
+                                        { id: '004', name: '江龙', age: 20, sex: '女' },
+                                        { id: '005', name: '李逵', age: 21, sex: '男' },
+                                        { id: '006', name: '武松', age: 22, sex: '男' },
+                                        { id: '007', name: '林冲', age: 23, sex: '男' },
+                                        { id: '008', name: '卢俊义', age: 24, sex: '男' },
+                                        { id: '009', name: '花荣', age: 20, sex: '男' },
+                                        { id: '010', name: '孙二娘', age: 19, sex: '女' },
+                                ],
+                        },
+                        methods: {
+                                updataSong() {
+                                        /* 
+                                        //奏效方法
+                                        this.persons[0].name = '老宋'
+                                        this.persons[0].age = 50
+                                        this.persons[0].sex = '男'
+                                        */
+                                        this.persons[0] = { id: '001', name: '老宋', age: 50, sex: '男' }
+                                }
+                        },
+                })
+        </script>
+</body>
+
+</html>
