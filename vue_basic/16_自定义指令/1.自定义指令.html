@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>自定义指令</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+	<div id="root">
+		<h2>当前的n值是：<span v-text="n"></span></h2>
+		<h2>放大10倍的n值是：<span v-big="n"></span></h2>
+		<button @click="n++">点我n+1</button>
+		<hr>
+		<input type="text" v-fbind:value="n">
+
+	</div>
+
+	<script>
+		Vue.config.productionTip = false;
+		//全局部署fbind
+		Vue.directive('fbind', {
+			bind(element, binging) {
+				//指令与元素成功绑定时
+				element.value = binging.value
+			},
+			inserted(element, binging) {
+				//指令所在元素被插入页面时
+				element.focus()
+			},
+			update(element, binging) {
+				//指令所在模板被重新解析时
+				element.value = binging.value
+			}
+		})
+		new Vue({
+			el: '#root',
+			data: {
+				n: 1,
+			},
+			directives: {
+				// 函数调用时机？1.指令、元素绑定成功。2.指令所在模板被重新解析时
+				big(element, binging) // 此处this指向为win
+				{
+					element.innerText = binging.value * 10
+				},
+				fbind: {
+					bind(element, binging) {
+						//指令与元素成功绑定时
+						element.value = binging.value
+					},
+					inserted(element, binging) {
+						//指令所在元素被插入页面时
+						element.focus()
+					},
+					update(element, binging) {
+						//指令所在模板被重新解析时
+						element.value = binging.value
+					}
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>
