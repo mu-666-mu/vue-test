@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>VueComponent</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <game></game>
+        </div>
+        <script>
+                Vue.config.productionTip = false;
+
+                //定义game组件
+                const game = Vue.extend({
+                        template: `
+                        <div>
+                                <h2>游戏名称：{{name}}</h2>
+                                <h2>所属公司：{{company}}</h2>
+                                </div>
+                        `,
+                        data() {
+                                return {
+                                        name: '王者荣耀',
+                                        company: '腾讯'
+                                }
+                        }
+                })
+
+                //创建vm
+                new Vue({
+                        el: '#root',
+                        components: { game }
+                })
+        </script>
+</body>
+
+</html>
