@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>VUE</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h1>{{msg}}</h1>
+                <game></game>
+                <br>
+                <hero></hero>
+        </div>
+        <script>
+                Vue.config.productionTip = false;
+
+                //创建组件1
+                const game = Vue.extend({
+                        template: `
+                        <div>
+                        <h2>游戏信息</h2>
+                        <h3>游戏名称：{{gameName}}</h3>
+                        <h3>所属公司：{{company}}</h3>
+                        <button @click="showName">点我提示游戏名</button>
+                        </div>
+                        `,
+                        data() {
+                                return {
+                                        gameName: '王者荣耀',
+                                        company: '腾讯',
+                                }
+                        },
+                        methods: {
+                                showName() {
+                                        alert(this.gameName)
+                                }
+                        },
+                })
+                //创建组件2
+                const hero = Vue.extend({
+                        template: `
+                        <div>
+                        <h2>英雄信息</h2>
+                        <h3>英雄名称：{{heroName}}</h3>
+                        <h3>英雄职业：{{occupation}}</h3>
+                        </div>
+                        `,
+                        data() {
+                                return {
+                                        heroName: '蔡文姬',
+                                        occupation: '辅助'
+                                }
+                        }
+                })
+
+                // 全局注册
+                Vue.component('hero', hero)
+                new Vue({
+                        el: '#root',
+                        data: {
+                                msg: '你好'
+                        },
+                        //局部注册
+                        components: {
+                                game,
+                                //或
+                                hero: hero
+                        }
+                })
+        </script>
+</body>
+
+</html>

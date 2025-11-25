@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>组件嵌套</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+
+        </div>
+        <script>
+
+                Vue.config.productionTip = false;
+
+                //定义hero组件
+                const hero = Vue.extend({
+                        template: `
+                        <div>
+                        <h2>英雄信息</h2>
+                        <h3>英雄名称：{{heroName}}</h3>
+                        <h3>英雄职业：{{occupation}}</h3>
+                        </div>
+                        `,
+                        data() {
+                                return {
+                                        heroName: '蔡文姬',
+                                        occupation: '辅助'
+                                }
+                        }
+                })
+
+                //定义game1组件
+                const game1 = Vue.extend({
+                        template: `
+                        <div>
+                        <h2>游戏信息1</h2>
+                        <h3>游戏名称：{{gameName}}</h3>
+                        <h3>所属公司：{{company}}</h3>
+                        <button @click="showName">点我提示游戏名</button>
+                        <hero></hero>
+                        </div>
+                        `,
+                        data() {
+                                return {
+                                        gameName: '王者荣耀',
+                                        company: '腾讯',
+                                }
+                        },
+                        methods: {
+                                showName() {
+                                        alert(this.gameName)
+                                }
+                        },
+                        components: {
+                                hero
+                        }
+                })
+                //定义game2组件
+                const game2 = Vue.extend({
+                        template: `
+                        <div>
+                        <h2>游戏信息2</h2>
+                        <h3>游戏名称：{{gameName}}</h3>
+                        <h3>所属公司：{{company}}</h3>
+                        </div>
+                        `,
+                        data() {
+                                return {
+                                        gameName: '碧蓝航线',
+                                        company: '黄鸡',
+                                }
+                        },
+                })
+                //定义app组件
+                const app = Vue.extend({
+                        template: `
+                        <div>
+                        <game1></game1>
+                        <br>
+                        <game2></game2>
+                        </div>
+                        `,
+                        components: {
+                                game1,
+                                game2
+                        }
+                })
+
+
+                //创建vm
+                new Vue({
+                        template: `<app></app>`,
+                        el: '#root',
+                        components: { app }
+                })
+        </script>
+</body>
+
+</html>

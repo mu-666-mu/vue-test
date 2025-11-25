@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <title>注意点</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+        <div id="root">
+                <h1>{{msg}}</h1>
+                <game></game>
+                <br>
+        </div>
+        <script>
+                Vue.config.productionTip = false;
+
+                //创建组件1
+                const game = Vue.extend({
+                        name: 'thisGame',//指定开发工具组件名
+                        template: `
+                        <div>
+                        <h2>游戏信息</h2>
+                        <h3>游戏名称：{{gameName}}</h3>
+                        <h3>所属公司：{{company}}</h3>
+                        <button @click="showName">点我提示游戏名</button>
+                        </div>
+                        `,
+                        data() {
+                                return {
+                                        gameName: '王者荣耀',
+                                        company: '腾讯',
+                                }
+                        },
+                        methods: {
+                                showName() {
+                                        alert(this.gameName)
+                                }
+                        },
+                })
+                new Vue({
+                        el: '#root',
+                        data: {
+                                msg: '你好'
+                        },
+                        //局部注册
+                        components: {
+                                game,
+                        }
+                })
+        </script>
+</body>
+
+</html>
