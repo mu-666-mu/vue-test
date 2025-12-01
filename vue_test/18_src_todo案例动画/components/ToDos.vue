@@ -1,0 +1,33 @@
+<template>
+  <ul class="todo-main">
+    <AToDo v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj" />
+  </ul>
+</template>
+
+<script>
+import AToDo from "./AToDo.vue";
+export default {
+  name: "ToDos",
+  components: { AToDo },
+  props: ["todos"],
+};
+</script>
+
+<style scoped>
+/*main*/
+.todo-main {
+  margin-left: 0px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 0px;
+}
+
+.todo-empty {
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding-left: 5px;
+  margin-top: 10px;
+}
+</style>
